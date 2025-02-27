@@ -1,27 +1,9 @@
 from fastapi import APIRouter
-from com.epislab.auth.user.service.add_user import UserService
+from com.epislab.auth.user.web.user_controller import UserController
 
 router = APIRouter()
-user_service = UserService()
+controller = UserController()
 
-@router.get("/")
-def hello():
-    return user_service.hello()
-
-def add_user(self, user):
-    print(f"컨트롤러➕사용자 추가: {user}")
-    return UserService().add_user(user)
-
-
-def get_user(self, user):
-    print(f"컨트롤러✍️사용자 조회: {user}")
-    return user
-
-def update_user(self, user):
-    print(f"컨트롤러🌻사용자 수정: {user}")
-    return user
-
-
-def delete_user(self, user):    
-    print(f"컨트롤러😈사용자 삭제: {user}")
-    return "Success"
+@router.get(path="/")
+async def hello_user():
+    return controller.hello_user()

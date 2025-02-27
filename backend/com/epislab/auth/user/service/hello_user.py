@@ -1,11 +1,10 @@
 from com.epislab.auth.user.service.abstract_user import AbstractUser
 
 
-class GetUser(AbstractUser):
+class HelloUser(AbstractUser):
 
     def handle(self, **kwargs):
-        pass
+        return "Hello User"
 
 
    
-    
