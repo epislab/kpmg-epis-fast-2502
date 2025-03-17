@@ -22,7 +22,7 @@ class CustomerFactory:
         instance = CustomerFactory._strategy_map[strategy]
         if not instance:
             raise Exception("invalid strategy")
-        return instance.create(**kwargs)
+        return await instance.handle(**kwargs)
     
 
     # 복잡한 것을 간단하게 변경함
