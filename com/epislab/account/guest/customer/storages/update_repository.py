@@ -1,17 +1,17 @@
 from sqlalchemy.ext.asyncio import AsyncSession
 from com.epislab.account.guest.customer.models.customer_entity import CustomerEntity
 from com.epislab.account.guest.customer.models.customer_schema import CustomerSchema
-from com.epislab.account.guest.customer.service.update_service import UpdateService
+from com.epislab.utils.creational.abstract.abstract_service import AbstractService
 
 
-class FullUpdateStrategy(UpdateService):
+class UpdateCustomer(AbstractService):
 
-    async def update(self,  db: AsyncSession, update_customer: CustomerSchema):
+    async def handler(self,  db: AsyncSession, update_customer: CustomerSchema):
         print("🚀🤖DeleteRepository update_customer 정보 : ", update_customer)
        
         return None
 
-class PartialdUpdateStrategy(UpdateService):
+class PatchCustomer(AbstractService):
 
-    async def update(self, db: AsyncSession, update_customer: CustomerSchema):
+    async def handler(self, db: AsyncSession, update_customer: CustomerSchema):
         pass

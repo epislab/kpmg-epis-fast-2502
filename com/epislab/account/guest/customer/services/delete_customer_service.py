@@ -1,13 +1,13 @@
 from sqlalchemy.ext.asyncio import AsyncSession
 from com.epislab.account.guest.customer.models.customer_schema import CustomerSchema
-from com.epislab.account.guest.customer.service.delete_service import DeleteService
+from com.epislab.utils.creational.abstract.abstract_service import AbstractService
 
-class SoftDeleteStrategy(DeleteService):
+class DeleteCustomer(AbstractService):
 
-    async def delete(self, db: AsyncSession, user_id: str):
+    async def handle(self, db: AsyncSession, user_id: str):
         pass
 
-class HardDeleteStrategy(DeleteService):
+class RemoveCustomer(AbstractService):
 
-    async def delete(self, db: AsyncSession, user_id: str):
+    async def handle(self, db: AsyncSession, user_id: str):
         pass

@@ -4,13 +4,13 @@ from com.epislab.account.guest.customer.storages import create_customer
 from com.epislab.utils.creational.abstract.abstract_service import AbstractService
 
 
-class CustomerCreate(AbstractService):
+class CreateCustomer(AbstractService):
 
     async def handle(self, **kwargs):
         db: AsyncSession = kwargs.get("db")
         schema: CustomerSchema = kwargs.get("customer")
         try:
-            customer = await create_customer(db, schema)
+            customer = await create_customer(schema)
             db.add(customer)
             await db.commit()
             await db.refresh(customer)

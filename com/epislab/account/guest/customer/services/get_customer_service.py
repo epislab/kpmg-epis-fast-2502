@@ -1,21 +1,23 @@
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.exc import SQLAlchemyError
 from com.epislab.account.guest.customer.models.customer_schema import CustomerSchema
-from com.epislab.account.guest.customer.storages.find_customer import GetAllRepository, GetDetailRepository
-from com.epislab.account.guest.customer.service.retrieve_service import RetrieveService
+from com.epislab.account.guest.customer.storages.get_customer import get_all_customers
+from com.epislab.utils.creational.abstract.abstract_service import AbstractService
 
-class GetAllStrategy(RetrieveService):
+class GetAllCustomers(AbstractService):
 
-    async def retrieve(self, db: AsyncSession, **kwargs):
-        retrieve_repo = GetAllRepository()
+    async def handle(self, **kwargs):
+        db: AsyncSession = kwargs.get("db")
         try:
-            result = await retrieve_repo.retrieve(db, **kwargs)
-            return result
+            async with db.begin():  # 🔥 트랜잭션 자동 관리
+                customers = await get_all_customers(db)
+            return customers  # ✅ 성공 시 데이터 반환
         except SQLAlchemyError as e:
-            print("⚠️ 데이터 조회 중 오류 발생:", str(e))
-            return {"error": "데이터 조회 중 오류가 발생했습니다."}
+            await db.rollback()  # 🔥 오류 발생 시 rollback()
+            print("[ERROR] GetAllCustomers failed:", str(e))
+            return {"error": "Failed to retrieve customer data."}  
 
-class GetDetailStrategy(RetrieveService):
+class GetCustomerById(AbstractService):
 
-    async def retrieve(self, db: AsyncSession, **kwargs):
+    async def handle(self, db: AsyncSession, **kwargs):
         pass

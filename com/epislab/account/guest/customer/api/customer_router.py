@@ -17,8 +17,8 @@ async def create_customer(new_customer: CustomerSchema, db: AsyncSession = Depen
     return await controller.create_customer(db=db, new_customer=new_customer)
 
 @router.get(path="/detail")
-async def get_customer_detail(user_id: str, db: AsyncSession = Depends(get_db)):
-    return await controller.get_customer_detail(db=db, user_id=user_id)
+async def get_customer_by_id(user_id: str, db: AsyncSession = Depends(get_db)):
+    return await controller.get_customer_by_id(db=db, user_id=user_id)
 
 
 # 응답 구조를 정의하는 모델
@@ -27,9 +27,9 @@ class CustomerListResponse(BaseModel):
 
 
 @router.get("/list", response_model=CustomerListResponse)
-async def get_customer_list( db: AsyncSession = Depends(get_db)):
+async def get_all_customers( db: AsyncSession = Depends(get_db)):
     print("🎉🎉 get_customers 로 진입함")
-    customers = await controller.get_customer_list(db=db)
+    customers = await controller.get_all_customers(db=db)
     return {
         "customer_list": customers
     }

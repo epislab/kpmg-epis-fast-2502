@@ -1,5 +1,5 @@
-from com.epislab.account.guest.customer.services.strategy_type import StrategyType
 from com.epislab.account.guest.customer.api.customer_factory import CustomerFactory
+from com.epislab.account.guest.customer.models.customer_action import CustomerAction
 
 class CustomerController:
 
@@ -7,18 +7,18 @@ class CustomerController:
         pass
 
     async def create_customer(self, **kwargs):
-        return await CustomerFactory.execute(strategy=StrategyType.DEFAULT_CREATE, method="create", **kwargs)
+        return await CustomerFactory.create(strategy=CustomerAction.CREATE_CUSTOMER, **kwargs)
 
-    async def get_customer_detail(self, **kwargs):
-        return await CustomerFactory.execute(strategy=StrategyType.GET_DETAIL, method="retrieve", **kwargs)
+    async def get_customer_by_id(self, **kwargs):
+        return await CustomerFactory.create(strategy=CustomerAction.GET_CUSTOMER_BY_ID, **kwargs)
 
-    async def get_customer_list(self, **kwargs):
-        return await CustomerFactory.execute(strategy=StrategyType.GET_ALL, method="retrieve", **kwargs)
+    async def get_all_customers(self, **kwargs):
+        return await CustomerFactory.create(strategy=CustomerAction.GET_ALL_CUSTOMERS, **kwargs)
 
     async def update_customer(self, **kwargs):
-        return await CustomerFactory.execute(strategy=StrategyType.FULL_UPDATE, method="update", **kwargs)
+        return await CustomerFactory.create(strategy=CustomerAction.UPDATE_CUSTOMER, **kwargs)
 
     async def delete_customer(self, **kwargs):
-        return await CustomerFactory.execute(strategy=StrategyType.HARD_DELETE, method="delete", **kwargs)
+        return await CustomerFactory.create(strategy=CustomerAction.DELETE_CUSTOMER, **kwargs)
 
 

@@ -6,7 +6,7 @@ from com.epislab.account.guest.customer.models.customer_schema import CustomerSc
 from com.epislab.account.guest.customer.service.retrieve_service import RetrieveService
 
 
-class GetAllRepository(RetrieveService):
+class (RetrieveService):
 
     async def retrieve(self, db: AsyncSession, **kwargs):
         print("💯🌈 GetAllRepository 로 진입함:")
