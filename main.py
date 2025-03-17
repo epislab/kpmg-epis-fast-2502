@@ -1,10 +1,25 @@
 from fastapi import Depends, FastAPI
 from fastapi.responses import HTMLResponse
-import os
-from fastapi import FastAPI
-from com.epislab.design_pattern.creational.builder.db_builder import get_db
+from contextlib import asynccontextmanager
+from com.epislab.utils.config.db_config import init_db, engine
+from com.epislab.app_router import router as app_router
 
+# ✅ FastAPI 애플리케이션 생성
 app = FastAPI()
+
+# ✅ 애플리케이션 시작 시 `init_db()` 실행
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    print("🚀🚀🚀🚀 FastAPI 앱이 시작됩니다. 데이터베이스 초기화 중...")
+    await init_db()  # ✅ DB 초기화 실행
+    print("✅ 데이터베이스 초기화 완료!")
+    yield  # 애플리케이션이 실행되는 동안 유지
+    print("🛑 FastAPI 앱이 종료됩니다.")
+    await engine.dispose()  # 🔥 모든 커넥션 정리
+    print("✅ DB 연결이 정상적으로 종료되었습니다.")
+
+# ✅ 라우터 등록
+app.include_router(app_router)
 
 def current_time():
     from datetime import datetime
@@ -23,15 +38,4 @@ async def home():
 """)
 
     
-@app.get("/users")
-async def get_users(db=Depends(get_db)):
-    print("🎉🎉 get_users 로 진입함")
-    query = "SELECT * FROM member"
-    try:
-        results = await db.fetch(query)
-        print("💯🌈 데이터 조회 결과:", results)
-        # JSON 형태로 반환
-        return {"users": [dict(record) for record in results]}
-    except Exception as e:
-        print("⚠️ 데이터 조회 중 오류 발생:", str(e))
-        return {"error": "데이터 조회 중 오류가 발생했습니다."}
+

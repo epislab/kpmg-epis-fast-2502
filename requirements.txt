@@ -5,3 +5,4 @@ asyncpg
 pytz
 python-dotenv
 psycopg2-binary
+email-validator
