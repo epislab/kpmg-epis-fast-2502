@@ -1,11 +1,20 @@
 from fastapi import Depends, FastAPI
 from fastapi.responses import HTMLResponse
 from contextlib import asynccontextmanager
-from com.epislab.utils.config.db_config import init_db, engine
+from com.epislab.utils.config.db_config import engine
 from com.epislab.app_router import router as app_router
+from fastapi.middleware.cors import CORSMiddleware  
 
 # ✅ FastAPI 애플리케이션 생성
 app = FastAPI()
+# ✅ CORS 설정 추가
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # 🔥 모든 도메인에서 요청 허용 (보안상 필요하면 특정 도메인만 허용)
+    allow_credentials=True,
+    allow_methods=["*"],  # ✅ 모든 HTTP 메서드 허용 (POST, OPTIONS 등)
+    allow_headers=["*"],  # ✅ 모든 헤더 허용
+)
 
 # ✅ 애플리케이션 시작 시 `init_db()` 실행
 @asynccontextmanager
@@ -19,7 +28,7 @@ async def lifespan(app: FastAPI):
     print("✅ DB 연결이 정상적으로 종료되었습니다.")
 
 # ✅ 라우터 등록
-app.include_router(app_router)
+app.include_router(app_router, prefix="/api")
 
 def current_time():
     from datetime import datetime

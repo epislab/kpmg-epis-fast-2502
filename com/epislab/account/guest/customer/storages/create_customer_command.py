@@ -3,7 +3,9 @@ from com.epislab.account.guest.customer.models.customer_entity import CustomerEn
 from com.epislab.account.guest.customer.models.customer_schema import CustomerSchema
 
 
-async def create_customer(db: AsyncSession, new_customer: CustomerSchema):
+async def create_customer(new_customer: CustomerSchema):
+    print("😁😁😁 create_customer_command 로 진입함")
+    print("new_customer : ",new_customer)
     return CustomerEntity(
         user_id = new_customer.user_id,
         name = new_customer.name,

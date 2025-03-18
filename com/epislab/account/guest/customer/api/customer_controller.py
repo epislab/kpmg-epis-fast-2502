@@ -7,6 +7,7 @@ class CustomerController:
         pass
 
     async def create_customer(self, **kwargs):
+        print("🍔🍔🍔🍔 CustomerController -> create_customer 로 진입함")
         return await CustomerFactory.create(strategy=CustomerAction.CREATE_CUSTOMER, **kwargs)
 
     async def get_customer_by_id(self, **kwargs):
