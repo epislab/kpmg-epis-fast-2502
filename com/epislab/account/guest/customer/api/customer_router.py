@@ -3,8 +3,8 @@ from fastapi import APIRouter, Depends
 from pydantic import BaseModel
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from com.epislab.account.guest.customer.models.customer_schema import CustomerSchema
-from com.epislab.account.guest.customer.api.customer_controller import CustomerController
+from com.epislab.account.employee.customer.models.customer_schema import CustomerSchema
+from com.epislab.account.employee.customer.api.customer_controller import CustomerController
 from com.epislab.utils.config.db_config import get_db
 
 
