@@ -1,39 +1,38 @@
-from fastapi import Query, Depends, HTTPException, APIRouter, Body
-from fastapi.responses import JSONResponse
+from fastapi.security import OAuth2PasswordBearer
+from fastapi import Depends, APIRouter, Body, Query
 from sqlalchemy.ext.asyncio import AsyncSession
+from starlette.responses import JSONResponse
 from typing import Annotated
-from app.auth.web.auth_controller import AuthController
-from app.auth.web.auth_service import create_jwt
-from app.utils.creational.builder.db_builder import get_db
-from app.utils.creational.factory.token_factory import oauth2_scheme
+
+from com.epislab.account.auth.user.api.user_controller import UserController
+from com.epislab.account.auth.user.models.user_schema import UserSchema
+from com.epislab.utils.config.db_config import get_db
+
 
 router = APIRouter()
 controller = UserController()
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 
-@router.post("/user/refresh")
-async def refresh_access_token(
-    refresh_token: Annotated[str, Depends(oauth2_scheme)],
-    action: str = Query(default="refresh"),
-    db: AsyncSession = Depends(get_db),):
+@router.post("/", response_model=UserSchema)
+async def handle_user(
+    op: str = Query(default="create"),
+    user_schema: UserSchema = Body(UserSchema()), 
+    db: AsyncSession = Depends(get_db)):
     
-    if action == "refresh":
-        # ✅ DB 또는 Redis에서 refresh_token 검증
-        stored_token = await controller.get_stored_refresh_token(db, refresh_token)
-        if not stored_token:
-            raise HTTPException(status_code=401, detail="Invalid refresh token")
-    
-        # ✅ 새로운 access_token 발급
-        new_access_token = await controller.refresh_access_token(refresh_token)
+    if op == "login":
+        pass
+            
 
-    return JSONResponse(content={"message": "Success", "new_access_token": new_access_token})
+    return JSONResponse(content={"message": "", "result": ""})
 
 
-# ✅ FastAPI 라우터 추가 (임시 토큰 발급용)
-router = APIRouter()
-
-@router.get("/user/token")
-def get_test_token():
-    """테스트용 JWT 토큰 생성"""
-    token = create_jwt({"user_id": "test-user"})
-    return {"access_token": token, "token_type": "bearer"}
+@router.delete("/")
+async def delete_user_by_id(
+    op: str = Query(default="delete"),
+    db: AsyncSession = Depends(get_db)):
+        
+    if op == "logout":
+        print("User logout successfully") 
+            
+    return JSONResponse(content={"message": ""})

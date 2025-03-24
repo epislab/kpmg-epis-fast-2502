@@ -1,19 +1,11 @@
 from pydantic import BaseModel, EmailStr
 
-
-
 class UserSchema(BaseModel):
-    user_id: str
+    user_id: str | None = None
     email: EmailStr
+    password: str
     name: str
-    password: str  # 회원가입 시 사용
-    
-    class Config:
-        from_attributes = True
-
-# class MemberCreate(MemberBase):
-#     password: str  # 회원가입 시 사용
-
-# class MemberResponse(MemberBase):
-#     class Config:
-#         from_attributes = True  # ✅ Pydantic v2에서는 orm_mode 대신 from_attributes 사용
+   
+    model_config = {
+        "from_attributes": True  # ✅ Pydantic v2 스타일 적용
+    }
