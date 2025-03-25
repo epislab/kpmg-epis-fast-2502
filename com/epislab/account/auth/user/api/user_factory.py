@@ -1,7 +1,5 @@
 from com.epislab.account.auth.user.models.user_action import UserAction
-from com.epislab.account.auth.user.services.user_lookup import Logout
 from com.epislab.account.auth.user.services.user_mutation import CreateNewUser
-from com.epislab.account.employee.manager.services.manager_lookup import Login
 
 
 class UserFactory:
@@ -9,9 +7,7 @@ class UserFactory:
     _strategy_map = {
         
 
-    UserAction.LOGIN: Login(),
     UserAction.CREATE_NEW_USER: CreateNewUser(),
-    UserAction.LOGOUT: Logout(),
 
     }
 

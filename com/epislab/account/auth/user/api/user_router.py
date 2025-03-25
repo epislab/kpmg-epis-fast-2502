@@ -16,14 +16,13 @@ oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 @router.post("/login", response_model=UserSchema)
 async def handle_user(
-    user_schema: UserLoginSchema = Body(UserLoginSchema()), 
+    user_schema: UserLoginSchema = Body(...), 
     db: AsyncSession = Depends(get_db)):
 
     result = await controller.login(user_schema=user_schema, db=db)
-    
 
-            
+    print("🎯🎯🎯🎯result : ", result)
 
-    return JSONResponse(content={"message": "", "result": ""})
+    return JSONResponse(content={"message": result.message, "data": result.data})
 
 

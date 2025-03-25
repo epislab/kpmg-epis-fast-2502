@@ -1,6 +1,4 @@
-from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy import Result, select, func, text 
-from com.epislab.account.auth.user.models.user_entity import UserEntity
+from sqlalchemy import  text          # ✅ SQL 함수만 가져오고
 
 def get_check_user_id_stmt(user_id: str):
     return text("""

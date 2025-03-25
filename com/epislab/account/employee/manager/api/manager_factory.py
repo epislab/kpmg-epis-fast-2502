@@ -6,10 +6,7 @@ class ManagerFactory:
     
     _strategy_map = {
         
-    ManagerAction.DELETE_USER: DeleteManager(),
-    ManagerAction.CREATE_NEW_USER: CreateNewManager(),
 
-    ManagerAction.GET_USER_ID: GetManagerId(),
 
     }
 
