@@ -1,7 +1,7 @@
 from sqlalchemy.ext.asyncio import AsyncSession
-from com.epislab.account.employee.customer.models.customer_entity import CustomerEntity
-from com.epislab.account.employee.customer.models.customer_schema import CustomerSchema
-from com.epislab.account.employee.customer.service.delete_service import DeleteService
+from com.epislab.account.guest.customer.models.customer_entity import CustomerEntity
+from com.epislab.account.guest.customer.models.customer_schema import CustomerSchema
+from com.epislab.account.guest.customer.service.delete_service import DeleteService
 
 
 class SoftDeleteRepository(DeleteService):

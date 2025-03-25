@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-from com.epislab.account.employee.customer.api.customer_router import router as customer_router
+from com.epislab.account.guest.customer.api.customer_router import router as customer_router
 
 router = APIRouter()
 

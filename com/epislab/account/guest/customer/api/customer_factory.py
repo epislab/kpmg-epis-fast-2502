@@ -1,10 +1,10 @@
 from typing import Literal
 from sqlalchemy.ext.asyncio import AsyncSession
-from com.epislab.account.employee.customer.models.customer_action import CustomerAction
-from com.epislab.account.employee.customer.services.create_customer_service import CreateCustomer
-from com.epislab.account.employee.customer.services.delete_customer_service import DeleteCustomer, RemoveCustomer
-from com.epislab.account.employee.customer.services.get_customer_service import GetAllCustomers, GetCustomerById
-from com.epislab.account.employee.customer.services.update_customer_service import UpdateCustomer, PatchCustomer
+from com.epislab.account.guest.customer.models.customer_action import CustomerAction
+from com.epislab.account.guest.customer.services.customer_mutation import CreateCustomer
+from com.epislab.account.guest.customer.services.delete_customer_service import DeleteCustomer, RemoveCustomer
+from com.epislab.account.guest.customer.services.get_customer_service import GetAllCustomers, GetCustomerById
+from com.epislab.account.guest.customer.services.update_customer_service import UpdateCustomer, PatchCustomer
 class CustomerFactory:
 
     _strategy_map = {

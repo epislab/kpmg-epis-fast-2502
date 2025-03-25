@@ -1,7 +1,7 @@
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.exc import SQLAlchemyError
-from com.epislab.account.employee.customer.models.customer_schema import CustomerSchema
-from com.epislab.account.employee.customer.storages.get_customer_query import get_all_customers
+from com.epislab.account.guest.customer.models.customer_schema import CustomerSchema
+from com.epislab.account.guest.customer.repositories.get_customer_query import get_all_customers
 from com.epislab.utils.creational.abstract.abstract_service import AbstractService
 
 class GetAllCustomers(AbstractService):

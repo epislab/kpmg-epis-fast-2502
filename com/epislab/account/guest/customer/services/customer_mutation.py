@@ -1,10 +1,10 @@
-from com.epislab.account.employee.customer.models.customer_schema import CustomerSchema
+from com.epislab.account.guest.customer.models.customer_schema import CustomerSchema
 from sqlalchemy.ext.asyncio import AsyncSession
-from com.epislab.account.employee.customer.storages.create_customer_command import create_customer
+from com.epislab.account.guest.customer.repositories.create_customer_command import create_customer
 from com.epislab.utils.creational.abstract.abstract_service import AbstractService
 
 
-class CreateCustomer(AbstractService):
+class CreateNewCustomer(AbstractService):
 
     async def handle(self, **kwargs):
         db: AsyncSession = kwargs.get("db")

@@ -1,5 +1,5 @@
-from com.epislab.account.employee.customer.api.customer_factory import CustomerFactory
-from com.epislab.account.employee.customer.models.customer_action import CustomerAction
+from com.epislab.account.guest.customer.api.customer_factory import CustomerFactory
+from com.epislab.account.guest.customer.models.customer_action import CustomerAction
 
 class CustomerController:
 

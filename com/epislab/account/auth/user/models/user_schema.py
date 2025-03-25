@@ -9,3 +9,11 @@ class UserSchema(BaseModel):
     model_config = {
         "from_attributes": True  # ✅ Pydantic v2 스타일 적용
     }
+
+class UserLoginSchema(BaseModel):
+    email: EmailStr
+    password: str
+   
+    model_config = {
+        "from_attributes": True 
+    }

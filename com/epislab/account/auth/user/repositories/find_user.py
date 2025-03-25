@@ -1,16 +1,21 @@
 from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy import select, func 
+from sqlalchemy import Result, select, func, text 
 from com.epislab.account.auth.user.models.user_entity import UserEntity
 
-async def login(**kwargs):
-    
-    user_id = kwargs.get("user_id")
-    password = kwargs.get("password")
-    
-    return select(UserEntity).where(
-        UserEntity.user_id == user_id,
-        UserEntity.password == password
-    )
+def get_check_user_id_stmt(user_id: str):
+    return text("""
+        SELECT 1 FROM users
+        WHERE user_id = :user_id
+        LIMIT 1
+    """), {"user_id": user_id}
 
-async def logout(**kwargs):
-    pass
+
+def get_login_stmt(user_id: str, password: str):
+    return text("""
+        SELECT * FROM users
+        WHERE user_id = :user_id AND password = :password
+        LIMIT 1
+    """), {
+        "user_id": user_id,
+        "password": password
+    }

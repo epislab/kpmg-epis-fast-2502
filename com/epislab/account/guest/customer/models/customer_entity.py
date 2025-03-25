@@ -1,7 +1,7 @@
 from sqlalchemy import Column, String
 
 
-from com.epislab.account.common.user.model.user_entity import UserEntity
+from com.epislab.account.auth.user.models.user_entity import UserEntity
 
 
 
