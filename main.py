@@ -1,9 +1,13 @@
+from dotenv import load_dotenv
 from fastapi import Depends, FastAPI
 from fastapi.responses import HTMLResponse
 from contextlib import asynccontextmanager
 from com.epislab.utils.config.db_config import engine
 from com.epislab.app_router import router as app_router
 from fastapi.middleware.cors import CORSMiddleware  
+
+load_dotenv()
+
 
 # ✅ FastAPI 애플리케이션 생성
 app = FastAPI()
@@ -20,8 +24,8 @@ app.add_middleware(
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     print("🚀🚀🚀🚀 FastAPI 앱이 시작됩니다. 데이터베이스 초기화 중...")
-    await init_db()  # ✅ DB 초기화 실행
-    print("✅ 데이터베이스 초기화 완료!")
+    # await init_db()  # ✅ DB 초기화 실행
+    # print("✅ 데이터베이스 초기화 완료!")
     yield  # 애플리케이션이 실행되는 동안 유지
     print("🛑 FastAPI 앱이 종료됩니다.")
     await engine.dispose()  # 🔥 모든 커넥션 정리

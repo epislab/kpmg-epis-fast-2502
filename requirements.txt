@@ -8,3 +8,5 @@ psycopg2-binary
 email-validator
 passlib[bcrypt]==1.7.4
 shortuuid==1.0.13
+python-jose[cryptography]
+

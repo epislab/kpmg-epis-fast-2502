@@ -19,10 +19,10 @@ async def handle_user(
     user_schema: UserLoginSchema = Body(...), 
     db: AsyncSession = Depends(get_db)):
 
-    result = await controller.login(user_schema=user_schema, db=db)
+    content = await controller.login(user_schema=user_schema, db=db)
 
-    print("🎯🎯🎯🎯result : ", result)
+    print("🎯🎯🎯🎯content : ", content)
 
-    return JSONResponse(content={"message": result.message, "data": result.data})
+    return JSONResponse(content=content)
 
 
