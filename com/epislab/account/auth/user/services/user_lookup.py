@@ -2,6 +2,7 @@ from sqlalchemy.engine import Result, Row
 from com.epislab.account.auth.user.repositories.find_user import build_check_email_stmt, build_login_stmt
 from com.epislab.utils.config.security.jwt_config import create_access_token, create_refresh_token
 from com.epislab.utils.creational.abstract.abstract_service import AbstractService
+from com.epislab.utils.config.security.redis_config import redis_client
 
 class Login(AbstractService):
     async def handle(self, **kwargs):
@@ -44,6 +45,13 @@ class Login(AbstractService):
         refresh_token = create_refresh_token(logged_in_user)
         print("🔑🔑🔑🔑🔑😁😁😁😁access_token : ", access_token)
         print("🩻🩻🩻🩻🩻🤗🤗🤗🤗🤗🤗refresh_token : ", refresh_token)
+        # ✅ Redis에 refresh_token 저장
+        user_id = logged_in_user.get("user_id")
+        await redis_client.set(
+            name=f"refresh_token:{user_id}", 
+            value=refresh_token, 
+            ex=60 * 60 * 24 * 7  # 7일 (만료 시간 설정)
+        )
         return {
             "message": "로그인 성공입니다",
             "logged_in_user": logged_in_user,

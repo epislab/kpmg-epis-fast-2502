@@ -9,9 +9,10 @@ docker start backend
 docker start database
 docker-compose
 docker exec -it database  psql -U myuser -d mydb
-docker exec -it backend bash
+
 docker compose logs --tail=500 -f backend
 
+docker exec -it backend bash
 docker exec -it backend /bin/bash
 
 docker exec -it backend env | Select-String "DB_"
