@@ -1,8 +1,25 @@
-
-
 services:
+  backend:
+    build:
+      context: .
+      dockerfile: docker/backend/Dockerfile
+    container_name: backend
+    restart: always
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend:/com/epislab
+    working_dir: /com/epislab
+    depends_on:
+      - database
+    env_file:
+      - .env
+    command: [ "uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000", "--reload" ]
+
   database:
-    image: postgres:latest
+    build:
+      context: .
+      dockerfile: docker/database/Dockerfile
     container_name: database
     restart: always
     environment:
@@ -14,29 +31,23 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
-  backend:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    container_name: backend
-    restart: always
-    ports:
-      - "8000:8000"
-    volumes:
-      - .:/com/epislab
-    working_dir: /com/epislab
-    depends_on:
-      - database  # database가 먼저 실행되도록 설정
-    env_file:
-      - .env
-    command: [ "uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000", "--reload" ]
-
   redis:
     image: redis:7
     container_name: redis
     restart: always
     ports:
       - "6379:6379"
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: pakjkwan@gmail.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+      - "5050:80"
+    depends_on:
+      - database
 
 volumes:
   postgres_data:

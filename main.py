@@ -2,7 +2,7 @@ from dotenv import load_dotenv
 from fastapi import Depends, FastAPI
 from fastapi.responses import HTMLResponse
 from contextlib import asynccontextmanager
-from com.epislab.utils.config.db_config import engine
+
 from com.epislab.app_router import router as app_router
 from fastapi.middleware.cors import CORSMiddleware  
 
