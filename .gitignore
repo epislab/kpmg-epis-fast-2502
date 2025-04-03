@@ -79,9 +79,9 @@ dmypy.json
 .vscode/
 
 # Docker artifacts
-**/docker_command.txt
-**/Dockerfile
-**/docker-compose.yml
+# **/docker_command.txt
+# **/Dockerfile
+# **/docker-compose.yml
 
 # Ignore OS-specific files
 .DS_Store
